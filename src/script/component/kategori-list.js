@@ -1,26 +1,43 @@
-import sliders from "../data/sliders"
-import './slider-item'
+import categories from "../data/categories"
+import './kategori-item'
+import DataCategories from '../data/data-categories'
+import $ from "jquery";
+
 
 class KategoriList extends HTMLElement {
   constructor() {
     super()
     this.shadowDOM = this.attachShadow({ mode: 'open' });
-    this._sliders = sliders
+    this._kategori = categories
+    try {
+      const result = DataCategories.categoriesList()
+      this.renderResult(result);
+    } catch (error) {
+      console.log(error);
+      // this.fallbackResult('error');
+    }
     this.render()
-    this.sliderRun()
   }
 
+  renderResult = results => {
+    console.log(results);
+    // const categoriesListElement = $('kategori-item')[0];
+    // categories = results
+    // categories = result
+  }
+
+  fallbackResult = message => {
+    console.log(message);
+  };
+
   render() {
-    this._sliders.forEach(item => {
-      const sliderItemElement = document.createElement('slider-item');
-      sliderItemElement.slider = item
-      this.shadowDOM.appendChild(sliderItemElement)
+    this._kategori.forEach(item => {
+      const kategoriItemElement = document.createElement('kategori-item');
+      kategoriItemElement.setCategori = item
+      this.shadowDOM.appendChild(kategoriItemElement)
     });
 
     
-  }
-
-  sliderRun() {
   }
 
 }
