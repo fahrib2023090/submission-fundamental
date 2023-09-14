@@ -9,21 +9,29 @@ class KategoriList extends HTMLElement {
     super()
     this.shadowDOM = this.attachShadow({ mode: 'open' });
     this._kategori = categories
+    this.mouseDown = false;
+    this.startX;
+    this.scrollLeft;
+    this.slider = document.querySelector('kategori-list');
+    this.render()
+    this.getKategori()
+  }
+
+  async getKategori() {
     try {
-      const result = DataCategories.categoriesList()
+      const result = await DataCategories.categoriesList()
       this.renderResult(result);
     } catch (error) {
-      console.log(error);
-      // this.fallbackResult('error');
+      this.fallbackResult(error);
     }
-    this.render()
   }
 
   renderResult = results => {
-    console.log(results);
-    // const categoriesListElement = $('kategori-item')[0];
-    // categories = results
-    // categories = result
+    results.genres.forEach(item => {
+      const kategoriItemElement = document.createElement('kategori-item');
+      kategoriItemElement.setCategori = item
+      this.shadowDOM.appendChild(kategoriItemElement)
+    });
   }
 
   fallbackResult = message => {
@@ -31,14 +39,30 @@ class KategoriList extends HTMLElement {
   };
 
   render() {
-    this._kategori.forEach(item => {
-      const kategoriItemElement = document.createElement('kategori-item');
-      kategoriItemElement.setCategori = item
-      this.shadowDOM.appendChild(kategoriItemElement)
+    this.slider.addEventListener('mousemove', (e) => {
+      e.preventDefault();
+      if(!this.mouseDown) { return; }
+      const x = e.pageX - this.slider.offsetLeft;
+      const scroll = (x - this.startX) * 0.1;
+      this.slider.scrollLeft = this.scrollLeft - scroll;
     });
-
+  
+    // Add the event listeners
+    this.slider.addEventListener('mousedown', this.startDragging, false);
+    this.slider.addEventListener('mouseup', this.stopDragging, false);
+    this.slider.addEventListener('mouseleave', this.stopDragging, false);
     
   }
+
+  startDragging (e) {
+    this.mouseDown = true;
+    this.startX = e.pageX - this.slider.offsetLeft;
+    this.scrollLeft = this.slider.scrollLeft;
+  };
+  
+  stopDragging (event) {
+    this.mouseDown = false;
+  };
 
 }
 

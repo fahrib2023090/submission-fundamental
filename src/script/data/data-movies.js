@@ -1,8 +1,6 @@
-import clubs from './categories.js';
-
-class DataCategories {
-  static categoriesList() {
-    const url = 'https://api.themoviedb.org/3/genre/movie/list?language=en';
+class DataMovies {
+  static moviesList({genre, page = 1}) {
+    const url = `https://api.themoviedb.org/3/discover/movie?language=en-US&sort_by=release_date.desc&page=${page}&with_genres=${genre_id}`
     const options = {
       method: 'GET',
       headers: {
@@ -22,8 +20,6 @@ class DataCategories {
             return Promise.reject(` is not found`);
           }
         }).catch(e => e)
-
   }
 }
-
-export default DataCategories;
+export default DataMovies;

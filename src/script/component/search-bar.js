@@ -23,7 +23,7 @@ class SearchBar extends HTMLElement {
     this.shadowDOM.innerHTML = `
       <style>
         .search-container {
-          max-width: 800px;
+          max-width: 690px;
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
           padding: 16px;
           border-radius: 5px;
@@ -31,6 +31,7 @@ class SearchBar extends HTMLElement {
           position: sticky;
           top: 10px;
           background-color: white;
+          margin-block-start: 10px;
         }
         .search-container > input {
           width: 75%;
@@ -71,6 +72,21 @@ class SearchBar extends HTMLElement {
           }
           .search-container > button {
             width: 100%;
+          }
+        }
+
+        @media screen and (min-device-width: 768px)
+                      and (max-device-width: 1024px) {
+          .search-container {
+            max-width: 710px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding: 16px;
+            border-radius: 5px;
+            display: flex;
+            position: sticky;
+            top: 10px;
+            background-color: white;
+            margin-block-start: 10px;
           }
         }
       </style>

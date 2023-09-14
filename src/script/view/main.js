@@ -28,4 +28,5 @@ const main = () => {
   searchElement.clickEvent = onButtonSearchClicked;
 };
 
+
 export default main;

@@ -1,8 +1,10 @@
-
+import $ from "jquery";
 class KategoriItem extends HTMLElement {
   constructor() {
     super();
     this.shadowDOM = this.attachShadow({ mode: 'open' });
+    console.log(this.shadowDOM);
+
   }
 
   set setCategori(kategori) {
@@ -21,17 +23,26 @@ class KategoriItem extends HTMLElement {
           box-sizing: border-box;
         }
         :host {
+          background: #534e53;
           border-radius: 10px;
           position: relative;
           text-align: center;
           color: white;
+          width: 100%;
+          border: 2px solid black;
+        }
+
+        :host(:hover) {
+          border: 2px solid white;
         }
 
         .centered {
           position: absolute;
-          top: 50%;
+          bottom: 0;
           left: 50%;
           transform: translate(-50%, -50%);
+          background: #4747479c;
+          width: 100%;
         }
 
         .centered > a {
@@ -40,13 +51,15 @@ class KategoriItem extends HTMLElement {
         }
 
         img {
-          width: 100%;
-          height: auto;
+          width: 200px;
+          height: 200px;
+          padding: 5px;
+          border-radius: 10px;
         }
       </style>
 
-      <img src="${this.kategori.pict}" alt="Snow" style="width:100%;">
-      <div class="centered"><a href="https://google.com">${this.kategori.title}</a></div>
+      <img src="https://picsum.photos/200/200/?random&t=${this.kategori.name}" alt="Snow">
+      <div class="centered"><a href="https://google.com">${this.kategori.name}</a></div>
     `
   }
 }
